@@ -5,7 +5,7 @@ Static website for VTA Global Services (Citizenship by Investment and property).
 ## Structure
 
 ```
-functions/         Cloudflare Pages Functions (API for dashboard, enquiries, uploads)
+functions/         Cloudflare Pages Functions (API for the staff dashboard, enquiries and uploads)
 lib/               Shared server helpers
 public/admin/      The dashboard
 public/            The live site (what Cloudflare serves)
@@ -31,12 +31,11 @@ Styling lives in `public/assets/css/style.css` and behaviour in `public/assets/j
 
 Every form opens WhatsApp with the visitor's details filled in, and also saves a copy to the dashboard inbox. The WhatsApp number is set in the dashboard under Settings.
 
-## Dashboard (`/admin`)
+## Staff dashboard (`/admin`)
 
 Sign in at `https://<site>/admin` with the admin password.
 
 - **Enquiries**: every form submission, with status (new, contacted, closed), notes, search and CSV export.
-- **Comments**: notes left on the live site. While signed in, every page shows a **Comment** button at the bottom left: click it, click any part of the page, type the note. Use **Copy open comments for Claude** to hand them over for changes.
 - **Properties**: add, edit, reorder or remove listings, including photos, key facts, cost breakdown and features.
 - **Passports**: ranks, visa-free counts, prices, processing times and programme details for the five Caribbean passports.
 - **FAQs**: questions, answers, topics, and which appear on the homepage.

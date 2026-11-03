@@ -36,27 +36,11 @@ export async function onRequest({ request, env, params }) {
     }
   }
 
-  // ----- enquiries & comments -----
-  if (section === 'enquiries' || section === 'comments') {
-    const prefix = section === 'enquiries' ? 'enq:' : 'cmt:';
+  // ----- enquiries -----
+  if (section === 'enquiries') {
+    const prefix = 'enq:';
     if (method === 'GET' && !id) {
-      const url = new URL(request.url);
-      let rows = await listRecords(kv, prefix, 500);
-      const page = url.searchParams.get('page');
-      if (page) rows = rows.filter((r) => r.page === page);
-      return json({ rows });
-    }
-    if (method === 'POST' && section === 'comments' && !id) {
-      const b = await request.json().catch(() => ({}));
-      if (!b.comment) return json({ error: 'Empty comment' }, 400);
-      const rec = {
-        page: clip(b.page, 120), selector: clip(b.selector, 600), snippet: clip(b.snippet, 200),
-        x: Number(b.x) || 0, y: Number(b.y) || 0, vw: Number(b.vw) || 0,
-        comment: clip(b.comment, 3000), status: 'open', created: new Date().toISOString()
-      };
-      const key = newId('cmt');
-      await kv.put(key, JSON.stringify(rec));
-      return json({ ok: true, id: key, ...rec });
+      return json({ rows: await listRecords(kv, prefix, 500) });
     }
     if (id && !id.startsWith(prefix)) return json({ error: 'Bad id' }, 400);
     if (method === 'PATCH' && id) {

@@ -6,7 +6,7 @@
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var clone = function (o) { return JSON.parse(JSON.stringify(o)); };
   var DEF = window.VTA_DEFAULTS;
-  var S = { content: null, saved: '', savedAt: null, enquiries: [], comments: [], tab: 'enquiries', enqFilter: 'all', enqQuery: '', cmtFilter: 'open' };
+  var S = { content: null, saved: '', savedAt: null, enquiries: [], tab: 'enquiries', enqFilter: 'all', enqQuery: '' };
 
   /* ---------- api ---------- */
   function api(path, opts) {
@@ -136,14 +136,12 @@
     counts();
   }
   function counts() {
-    var n = S.enquiries.filter(function (x) { return x.status === 'new'; }).length, c = S.comments.filter(function (x) { return x.status !== 'resolved'; }).length;
+    var n = S.enquiries.filter(function (x) { return x.status === 'new'; }).length;
     $('#newCount').hidden = !n; $('#newCount').textContent = n;
-    $('#openCount').hidden = !c; $('#openCount').textContent = c;
   }
   $$('.tabs button').forEach(function (b) { b.addEventListener('click', function () { location.hash = b.dataset.tab; }); });
   function refreshLive() {
     if (S.tab === 'enquiries') return loadEnquiries().then(function () { if (S.tab === 'enquiries' && !document.activeElement.matches('textarea,select,input')) render(); }).catch(function () {});
-    if (S.tab === 'comments') return loadComments().then(function () { if (S.tab === 'comments') render(); }).catch(function () {});
   }
   window.addEventListener('hashchange', function () { var t = location.hash.slice(1); if (VIEWS[t]) { S.tab = t; render(); window.scrollTo(0, 0); refreshLive(); } });
   setInterval(function () { if (!$('#app').hidden && document.visibilityState === 'visible') refreshLive(); }, 30000);
@@ -169,24 +167,6 @@
         '<td style="min-width:200px"><textarea rows="2" data-enq="' + esc(r.id) + '" data-field="note" placeholder="Add a note">' + esc(r.note) + '</textarea></td>' +
         '<td><button type="button" class="x" data-enqdel="' + esc(r.id) + '" aria-label="Delete enquiry">×</button></td></tr>';
     }).join('') + '</tbody></table></div>';
-  };
-
-  /* comments */
-  VIEWS.comments = function () {
-    var rows = S.comments.filter(function (c) { return S.cmtFilter === 'all' || (S.cmtFilter === 'open' ? c.status !== 'resolved' : c.status === 'resolved'); });
-    var f = function (v, l) { return '<button type="button" class="btn sm' + (S.cmtFilter === v ? ' primary' : '') + '" data-cmtf="' + v + '">' + l + '</button>'; };
-    var head = '<div class="head"><div><h1>Comments</h1><p>Notes left on the site itself. Open any page while signed in and use the <b>Comment</b> button at the bottom left.</p></div>' +
-      '<div class="tools">' + f('open', 'Open') + f('resolved', 'Resolved') + f('all', 'All') + '<button type="button" class="btn sm gold" id="cmtCopy">Copy open comments for Claude</button><button type="button" class="btn sm" id="cmtRefresh">Refresh</button></div></div>';
-    var tip = '<div class="banner info">To hand comments to Claude: click <b>Copy open comments for Claude</b>, paste them into your chat, and ask for the changes. Mark them resolved here once done.</div>';
-    if (!rows.length) return head + tip + '<div class="empty">' + (S.comments.length ? 'Nothing in this filter.' : 'No comments yet. Visit the site while signed in and click Comment.') + '</div>';
-    var pages = {}; rows.forEach(function (c) { (pages[c.page] = pages[c.page] || []).push(c); });
-    return head + tip + Object.keys(pages).map(function (pg) {
-      return '<div class="card"><div class="row-head"><h3>' + esc(pg) + '</h3><a class="btn sm" href="' + esc(pg) + '" target="_blank" rel="noopener">Open page ↗</a></div>' + pages[pg].map(function (c) {
-        var n = S.comments.filter(function (x) { return x.page === c.page; }).slice().reverse().indexOf(c) + 1;
-        return '<div class="cmt' + (c.status === 'resolved' ? ' resolved' : '') + '" style="padding:12px 0;border-top:1px solid #EEF1F3"><span class="num">' + n + '</span><div><div class="text">' + esc(c.comment) + '</div><div class="meta">On “' + esc(c.snippet) + '” · ' + esc(fmt(c.created)) + (c.vw ? ' · ' + (c.vw < 700 ? 'phone' : c.vw < 1100 ? 'tablet' : 'desktop') + ' view' : '') + '</div></div>' +
-          '<div class="actions"><a class="btn sm" href="' + esc(c.page) + '?comment=' + encodeURIComponent(c.id) + '" target="_blank" rel="noopener">View on page</a><button type="button" class="btn sm" data-cmttoggle="' + esc(c.id) + '">' + (c.status === 'resolved' ? 'Reopen' : 'Resolve') + '</button><button type="button" class="x" data-cmtdel="' + esc(c.id) + '" aria-label="Delete comment">×</button></div></div>';
-      }).join('') + '</div>';
-    }).join('');
   };
 
   /* properties */
@@ -255,25 +235,10 @@
   document.addEventListener('click', function (e) {
     var t = e.target;
     if (t.dataset.enqf) { S.enqFilter = t.dataset.enqf; render(); }
-    else if (t.dataset.cmtf) { S.cmtFilter = t.dataset.cmtf; render(); }
     else if (t.id === 'enqRefresh') loadEnquiries().then(function () { render(); toast('Updated'); });
-    else if (t.id === 'cmtRefresh') loadComments().then(function () { render(); toast('Updated'); });
     else if (t.dataset.enqdel) {
       if (!confirm('Delete this enquiry permanently?')) return;
       api('/api/admin/enquiries/' + encodeURIComponent(t.dataset.enqdel), { method: 'DELETE' }).then(function () { S.enquiries = S.enquiries.filter(function (x) { return x.id !== t.dataset.enqdel; }); render(); }).catch(fail);
-    } else if (t.dataset.cmtdel) {
-      if (!confirm('Delete this comment?')) return;
-      api('/api/admin/comments/' + encodeURIComponent(t.dataset.cmtdel), { method: 'DELETE' }).then(function () { S.comments = S.comments.filter(function (x) { return x.id !== t.dataset.cmtdel; }); render(); }).catch(fail);
-    } else if (t.dataset.cmttoggle) {
-      var c = S.comments.filter(function (x) { return x.id === t.dataset.cmttoggle; })[0];
-      api('/api/admin/comments/' + encodeURIComponent(c.id), { method: 'PATCH', body: { status: c.status === 'resolved' ? 'open' : 'resolved' } }).then(function (u) { c.status = u.status; render(); }).catch(fail);
-    } else if (t.id === 'cmtCopy') {
-      var open = S.comments.filter(function (x) { return x.status !== 'resolved'; });
-      if (!open.length) return toast('No open comments');
-      var txt = 'Website comments to action (' + open.length + '), from the VTA dashboard:\n\n' + open.map(function (c, i) {
-        return (i + 1) + '. Page: ' + c.page + '\n   Element: "' + c.snippet + '"\n   Selector: ' + c.selector + '\n   Seen on: ' + (c.vw ? c.vw + 'px wide screen' : 'unknown') + '\n   Comment: ' + c.comment;
-      }).join('\n\n');
-      (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(function () { toast('Copied. Paste it into your chat with Claude.'); }).catch(function () { prompt('Copy this text:', txt); });
     } else if (t.id === 'exportJson') {
       var blob = new Blob([JSON.stringify(S.content, null, 2)], { type: 'application/json' }), a = document.createElement('a');
       a.href = URL.createObjectURL(blob); a.download = 'vta-content-' + new Date().toISOString().slice(0, 10) + '.json'; a.click();
@@ -327,7 +292,6 @@
 
   /* ---------- load ---------- */
   function loadEnquiries() { return api('/api/admin/enquiries').then(function (d) { S.enquiries = d.rows || []; }); }
-  function loadComments() { return api('/api/admin/comments').then(function (d) { S.comments = d.rows || []; }); }
   function start() {
     api('/api/admin/me').then(function (me) {
       $('#login').hidden = true; $('#app').hidden = false;
@@ -335,7 +299,7 @@
       if (!me.storage) { S.content = clone(DEF); S.saved = JSON.stringify(S.content); S.tab = location.hash.slice(1) || 'properties'; if (!VIEWS[S.tab]) S.tab = 'properties'; render(); return; }
       return Promise.all([
         api('/api/admin/content').then(function (d) { S.content = mergeDefaults(d.content); S.saved = JSON.stringify(S.content); S.savedAt = d.savedAt; }),
-        loadEnquiries(), loadComments()
+        loadEnquiries()
       ]).then(function () { var t = location.hash.slice(1); S.tab = VIEWS[t] ? t : 'enquiries'; render(); markDirty(); });
     }).catch(function (e) { if (e.message !== 'Signed out') { showLogin(); $('#loginErr').textContent = e.message; } });
   }

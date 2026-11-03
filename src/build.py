@@ -84,7 +84,6 @@ def page(fname, title, desc, page_id, body):
 {FOOTER}
 <script src="assets/js/content.js?v={ver("assets/js/content.js")}"></script>
 <script src="assets/js/app.js?v={ver("assets/js/app.js")}"></script>
-<script src="assets/js/feedback.js?v={ver("assets/js/feedback.js")}" defer></script>
 </body>
 </html>
 '''
