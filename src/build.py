@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, hashlib
 OUT = sys.argv[1]
 # Full web address of the live site. Link previews (WhatsApp, Facebook, X) need absolute URLs.
 SITE = 'https://vtaglobal.pages.dev'
@@ -43,6 +43,10 @@ FOOTER = '''<footer class="site-footer">
   </div>
 </footer>'''
 
+def ver(path):
+    with open(os.path.join(OUT, path), 'rb') as f:
+        return hashlib.md5(f.read()).hexdigest()[:10]
+
 def page(fname, title, desc, page_id, body):
     html = f'''<!doctype html>
 <html lang="en">
@@ -70,7 +74,7 @@ def page(fname, title, desc, page_id, body):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v={ver("assets/css/style.css")}">
 </head>
 <body data-page="{page_id}">
 {header(fname)}
@@ -78,9 +82,9 @@ def page(fname, title, desc, page_id, body):
 {body}
 </main>
 {FOOTER}
-<script src="assets/js/content.js"></script>
-<script src="assets/js/app.js"></script>
-<script src="assets/js/feedback.js" defer></script>
+<script src="assets/js/content.js?v={ver("assets/js/content.js")}"></script>
+<script src="assets/js/app.js?v={ver("assets/js/app.js")}"></script>
+<script src="assets/js/feedback.js?v={ver("assets/js/feedback.js")}" defer></script>
 </body>
 </html>
 '''
