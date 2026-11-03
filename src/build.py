@@ -1,5 +1,7 @@
 import os, sys
 OUT = sys.argv[1]
+# Full web address of the live site. Link previews (WhatsApp, Facebook, X) need absolute URLs.
+SITE = 'https://vtaglobal.pages.dev'
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 NAV = [('index.html','Home'),('passports.html','Passports'),('ranking.html','Passport Ranking'),
@@ -49,9 +51,20 @@ def page(fname, title, desc, page_id, body):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VTA Global Services">
+<meta property="og:url" content="{SITE}/{'' if fname == 'index.html' else fname}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="assets/img/metave-01.webp">
+<meta property="og:image" content="{SITE}/assets/img/og-image.jpg">
+<meta property="og:image:secure_url" content="{SITE}/assets/img/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="VTA Global Services logo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{SITE}/assets/img/og-image.jpg">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <meta name="theme-color" content="#0B1B2B">
 <link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
