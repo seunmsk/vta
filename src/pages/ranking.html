@@ -1,0 +1,62 @@
+<section class="glow-c" style="padding:72px 0 90px;overflow:hidden">
+  <div class="wrap stack-lg" style="gap:56px">
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+      <p class="eyebrow" style="margin:0">Global Passport Ranking · 2026</p>
+      <h1 class="h1" style="max-width:860px">How powerful is <span class="it">your</span> passport?</h1>
+      <p class="lead" style="max-width:640px">All passports, ranked by how many destinations they open without a visa in advance. Find yours, then see what a second passport would add.</p>
+    </div>
+    <div class="podium">
+      <div><img src="assets/img/pp-japan.webp" alt="Japan passport cover" width="160" height="229"><div class="o">2nd</div><b>Japan</b><div style="font-size:13px;color:var(--muted2)">188 destinations</div></div>
+      <div><img src="assets/img/pp-singapore.webp" alt="Singapore passport cover" width="190" height="272"><div class="o">1st</div><b>Singapore</b><div style="font-size:13px;color:var(--muted2)">192 destinations</div></div>
+      <div><img src="assets/img/pp-southkorea.webp" alt="South Korea passport cover" width="160" height="229"><div class="o">2nd</div><b>South Korea</b><div style="font-size:13px;color:var(--muted2)">188 destinations</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-navy2" style="padding:90px 0">
+  <div class="wrap stack" style="gap:36px">
+    <div class="mw720"><p class="eyebrow">Head to head</p><h2 class="h2">Compare any two passports</h2></div>
+    <div class="two" style="gap:24px">
+      <label class="f">Your passport<select class="field" id="selA"></select></label>
+      <label class="f">Compare with<select class="field" id="selB"></select></label>
+    </div>
+    <div class="vs">
+      <div class="vs-card" id="vsA"></div>
+      <div class="vs-mid"><div style="font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase" id="vsLbl"></div><b id="vsNum"></b><div style="font-size:15px;font-weight:600" id="vsSub"></div></div>
+      <div class="vs-card" id="vsB"></div>
+    </div>
+    <div class="banner" id="vsCbi" hidden></div>
+  </div>
+</section>
+
+<section id="ranking" class="light" style="padding:90px 0">
+  <div class="wrap stack">
+    <div class="row-between">
+      <div><p class="eyebrow">The full ranking</p><h2 class="h2">Global passport ranking</h2></div>
+      <div class="chips" id="rkChips" role="group" aria-label="Quick filters">
+        <button type="button" class="chip" data-f="all" aria-pressed="true">All passports</button>
+        <button type="button" class="chip" data-f="cbi" aria-pressed="false">Available through CBI</button>
+        <button type="button" class="chip" data-f="mine" aria-pressed="false">Find my passport</button>
+      </div>
+    </div>
+    <label class="search"><span class="sr">Search for a passport</span>
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="#5B6B78" stroke-width="1.7"><circle cx="9" cy="9" r="6"/><path d="M14 14l4 4"/></svg>
+      <input type="search" id="rkSearch" placeholder="Search for a passport" autocomplete="off">
+    </label>
+    <div class="tbl-box">
+      <div class="rk-head"><span>Rank</span><span>Passport</span><span class="hide-sm">Mobility</span><span style="text-align:right">Access</span></div>
+      <div id="rkList"></div>
+      <div class="empty" id="rkEmpty" style="border:0">No passport matches that search.</div>
+    </div>
+    <button type="button" class="btn btn-dark" id="rkMore" style="align-self:center"></button>
+    <p class="note">Rankings as of January 2026. Access counts destinations reachable visa-free, with visa on arrival or an electronic travel authority. Some passport covers are illustrative.</p>
+  </div>
+</section>
+
+<section class="glow-l" style="padding:80px 0">
+  <div class="wrap" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px">
+    <h2 class="h2" style="max-width:780px">Move up 60+ places with a second passport</h2>
+    <p class="lead" style="font-size:17px;max-width:560px">Five Caribbean passports rank between 23rd and 29th worldwide, and you can hold one alongside the passport you already have.</p>
+    <a href="consultation.html" class="btn btn-gold">Book a free consultation</a>
+  </div>
+</section>

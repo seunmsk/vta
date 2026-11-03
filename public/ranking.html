@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Global Passport Ranking 2026 | VTA Global Services</title>
+<meta name="description" content="See how 199 passports rank by visa-free access, and compare any two side by side.">
+<meta property="og:title" content="Global Passport Ranking 2026 | VTA Global Services">
+<meta property="og:description" content="See how 199 passports rank by visa-free access, and compare any two side by side.">
+<meta property="og:image" content="assets/img/metave-01.webp">
+<meta name="theme-color" content="#0B1B2B">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="ranking">
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="VTA Global Services" width="185" height="50"></a>
+    <nav class="navlinks" aria-label="Main"><a href="index.html" class="nl">Home</a><div class="nav-dd"><a href="passports.html" class="nl">Passports <svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></a><div class="dd-menu"><a href="passports.html#skn">St Kitts &amp; Nevis <span>#23</span></a><a href="passports.html#ant">Antigua &amp; Barbuda <span>#24</span></a><a href="passports.html#gre">Grenada <span>#27</span></a><a href="passports.html#slu">Saint Lucia <span>#29</span></a><a href="passports.html#dom">Dominica <span>#29</span></a></div></div><a href="ranking.html" class="nl active">Passport Ranking</a><a href="how-it-works.html" class="nl">How CBI works</a><a href="properties.html" class="nl">Properties</a><a href="about.html" class="nl">About</a><a href="faq.html" class="nl">FAQ</a></nav>
+    <div class="head-right">
+      <a href="consultation.html" class="btn btn-gold">Book a consultation</a>
+      <button type="button" class="burger" aria-label="Menu" aria-expanded="false" aria-controls="drawer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+  <nav class="drawer wrap" id="drawer" aria-label="Mobile"><a href="index.html">Home</a><a href="passports.html">Passports</a><a href="ranking.html">Passport Ranking</a><a href="how-it-works.html">How CBI works</a><a href="properties.html">Properties</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="consultation.html" style="color:var(--gold);font-weight:700">Book a consultation</a></nav>
+</header>
+<main>
+<section class="glow-c" style="padding:72px 0 90px;overflow:hidden">
+  <div class="wrap stack-lg" style="gap:56px">
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+      <p class="eyebrow" style="margin:0">Global Passport Ranking · 2026</p>
+      <h1 class="h1" style="max-width:860px">How powerful is <span class="it">your</span> passport?</h1>
+      <p class="lead" style="max-width:640px">All passports, ranked by how many destinations they open without a visa in advance. Find yours, then see what a second passport would add.</p>
+    </div>
+    <div class="podium">
+      <div><img src="assets/img/pp-japan.webp" alt="Japan passport cover" width="160" height="229"><div class="o">2nd</div><b>Japan</b><div style="font-size:13px;color:var(--muted2)">188 destinations</div></div>
+      <div><img src="assets/img/pp-singapore.webp" alt="Singapore passport cover" width="190" height="272"><div class="o">1st</div><b>Singapore</b><div style="font-size:13px;color:var(--muted2)">192 destinations</div></div>
+      <div><img src="assets/img/pp-southkorea.webp" alt="South Korea passport cover" width="160" height="229"><div class="o">2nd</div><b>South Korea</b><div style="font-size:13px;color:var(--muted2)">188 destinations</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-navy2" style="padding:90px 0">
+  <div class="wrap stack" style="gap:36px">
+    <div class="mw720"><p class="eyebrow">Head to head</p><h2 class="h2">Compare any two passports</h2></div>
+    <div class="two" style="gap:24px">
+      <label class="f">Your passport<select class="field" id="selA"></select></label>
+      <label class="f">Compare with<select class="field" id="selB"></select></label>
+    </div>
+    <div class="vs">
+      <div class="vs-card" id="vsA"></div>
+      <div class="vs-mid"><div style="font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase" id="vsLbl"></div><b id="vsNum"></b><div style="font-size:15px;font-weight:600" id="vsSub"></div></div>
+      <div class="vs-card" id="vsB"></div>
+    </div>
+    <div class="banner" id="vsCbi" hidden></div>
+  </div>
+</section>
+
+<section id="ranking" class="light" style="padding:90px 0">
+  <div class="wrap stack">
+    <div class="row-between">
+      <div><p class="eyebrow">The full ranking</p><h2 class="h2">Global passport ranking</h2></div>
+      <div class="chips" id="rkChips" role="group" aria-label="Quick filters">
+        <button type="button" class="chip" data-f="all" aria-pressed="true">All passports</button>
+        <button type="button" class="chip" data-f="cbi" aria-pressed="false">Available through CBI</button>
+        <button type="button" class="chip" data-f="mine" aria-pressed="false">Find my passport</button>
+      </div>
+    </div>
+    <label class="search"><span class="sr">Search for a passport</span>
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="#5B6B78" stroke-width="1.7"><circle cx="9" cy="9" r="6"/><path d="M14 14l4 4"/></svg>
+      <input type="search" id="rkSearch" placeholder="Search for a passport" autocomplete="off">
+    </label>
+    <div class="tbl-box">
+      <div class="rk-head"><span>Rank</span><span>Passport</span><span class="hide-sm">Mobility</span><span style="text-align:right">Access</span></div>
+      <div id="rkList"></div>
+      <div class="empty" id="rkEmpty" style="border:0">No passport matches that search.</div>
+    </div>
+    <button type="button" class="btn btn-dark" id="rkMore" style="align-self:center"></button>
+    <p class="note">Rankings as of January 2026. Access counts destinations reachable visa-free, with visa on arrival or an electronic travel authority. Some passport covers are illustrative.</p>
+  </div>
+</section>
+
+<section class="glow-l" style="padding:80px 0">
+  <div class="wrap" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px">
+    <h2 class="h2" style="max-width:780px">Move up 60+ places with a second passport</h2>
+    <p class="lead" style="font-size:17px;max-width:560px">Five Caribbean passports rank between 23rd and 29th worldwide, and you can hold one alongside the passport you already have.</p>
+    <a href="consultation.html" class="btn btn-gold">Book a free consultation</a>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col"><img src="assets/img/logo.png" alt="VTA Global Services" width="222" height="60"><p>Citizenship by Investment advisors serving clients worldwide.</p><p style="color:#E9D3A0;font-size:13px">Grenada Government CBI Accredited Marketing Agent</p></div>
+      <div class="foot-col"><h4>Passports</h4><a href="passports.html#skn">St Kitts &amp; Nevis</a><a href="passports.html#ant">Antigua &amp; Barbuda</a><a href="passports.html#gre">Grenada</a><a href="passports.html#slu">Saint Lucia</a><a href="passports.html#dom">Dominica</a></div>
+      <div class="foot-col"><h4>Company</h4><a href="how-it-works.html">How CBI works</a><a href="ranking.html">Passport Ranking</a><a href="properties.html">Properties</a><a href="about.html">About us</a><a href="faq.html">FAQ</a><a href="consultation.html">Book a consultation</a></div>
+      <div class="foot-col"><h4>Contact</h4><a href="https://wa.me/2348073959876" target="_blank" rel="noopener">WhatsApp +234 807 395 9876</a><a href="tel:+2348073959876">+234 807 395 9876</a><a href="tel:+447960645586">+44 7960 645586</a><a href="mailto:info@vtaglobalservices.com">info@vtaglobalservices.com</a><a href="https://www.instagram.com/vtaglobalcitizenship/" target="_blank" rel="noopener">Instagram</a></div>
+    </div>
+    <div class="foot-bottom"><span>© <span data-year>2026</span> VTA Global Services. All rights reserved.</span></div>
+  </div>
+</footer>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

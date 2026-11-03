@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a Consultation | VTA Global Services</title>
+<meta name="description" content="Book a free 30-minute consultation by Zoom, WhatsApp or in person.">
+<meta property="og:title" content="Book a Consultation | VTA Global Services">
+<meta property="og:description" content="Book a free 30-minute consultation by Zoom, WhatsApp or in person.">
+<meta property="og:image" content="assets/img/metave-01.webp">
+<meta name="theme-color" content="#0B1B2B">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="consult">
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="VTA Global Services" width="185" height="50"></a>
+    <nav class="navlinks" aria-label="Main"><a href="index.html" class="nl">Home</a><div class="nav-dd"><a href="passports.html" class="nl">Passports <svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg></a><div class="dd-menu"><a href="passports.html#skn">St Kitts &amp; Nevis <span>#23</span></a><a href="passports.html#ant">Antigua &amp; Barbuda <span>#24</span></a><a href="passports.html#gre">Grenada <span>#27</span></a><a href="passports.html#slu">Saint Lucia <span>#29</span></a><a href="passports.html#dom">Dominica <span>#29</span></a></div></div><a href="ranking.html" class="nl">Passport Ranking</a><a href="how-it-works.html" class="nl">How CBI works</a><a href="properties.html" class="nl">Properties</a><a href="about.html" class="nl">About</a><a href="faq.html" class="nl">FAQ</a></nav>
+    <div class="head-right">
+      <a href="consultation.html" class="btn btn-gold">Book a consultation</a>
+      <button type="button" class="burger" aria-label="Menu" aria-expanded="false" aria-controls="drawer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h14M3 10h14M3 14h14"/></svg></button>
+    </div>
+  </div>
+  <nav class="drawer wrap" id="drawer" aria-label="Mobile"><a href="index.html">Home</a><a href="passports.html">Passports</a><a href="ranking.html">Passport Ranking</a><a href="how-it-works.html">How CBI works</a><a href="properties.html">Properties</a><a href="about.html">About</a><a href="faq.html">FAQ</a><a href="consultation.html" style="color:var(--gold);font-weight:700">Book a consultation</a></nav>
+</header>
+<main>
+<section style="padding:72px 0 110px;background:radial-gradient(1100px 520px at 85% 0%,#143A55 0%,var(--navy) 55%)">
+  <div class="wrap stack-lg">
+    <div class="stack mw720" style="gap:18px">
+      <p class="eyebrow" style="margin:0">Book a consultation</p>
+      <h1 class="h1" style="font-size:60px">30 minutes with an advisor. <span class="it">No obligation.</span></h1>
+      <p class="lead">We'll shortlist the right passport for your family, walk you through costs and timelines, and answer every question.</p>
+    </div>
+    <div class="layout-main">
+      <div class="main panel-light">
+        <form class="wa-form stack" style="gap:30px" data-title="Consultation booking request" id="bookForm">
+          <fieldset>
+            <legend><span style="color:var(--gold-d)">1.</span> How would you like to talk?</legend>
+            <div class="opt-grid" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))" data-pick="Meeting type">
+              <button type="button" class="opt mode" aria-pressed="true" data-v="Zoom video call"><b>Zoom video call</b><small>Most popular · 30 min</small></button>
+              <button type="button" class="opt mode" aria-pressed="false" data-v="WhatsApp call"><b>WhatsApp call</b><small>Voice only · 30 min</small></button>
+              <button type="button" class="opt mode" aria-pressed="false" data-v="Office visit, Ikoyi"><b>Office visit</b><small>Ikoyi, Lagos · 45 min</small></button>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span style="color:var(--gold-d)">2.</span> Pick a day and time <small>(West Africa Time, GMT+1)</small></legend>
+            <div class="opt-grid" style="grid-template-columns:repeat(auto-fit,minmax(84px,1fr));margin-bottom:10px" data-pick="Preferred day" id="days"></div>
+            <div class="opt-grid" style="grid-template-columns:repeat(auto-fit,minmax(110px,1fr))" data-pick="Preferred time">
+              <button type="button" class="opt slot" aria-pressed="false" data-v="10:00 WAT">10:00</button>
+              <button type="button" class="opt slot" aria-pressed="true" data-v="11:30 WAT">11:30</button>
+              <button type="button" class="opt slot" aria-pressed="false" data-v="13:00 WAT">13:00</button>
+              <button type="button" class="opt slot" aria-pressed="false" data-v="15:00 WAT">15:00</button>
+              <button type="button" class="opt slot" aria-pressed="false" data-v="16:30 WAT">16:30</button>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span style="color:var(--gold-d)">3.</span> Your details</legend>
+            <div class="form-grid" style="gap:14px">
+              <label class="f">Full name<input class="field" name="Name" type="text" required placeholder="Adaeze Okafor" autocomplete="name"></label>
+              <label class="f">WhatsApp number<input class="field" name="WhatsApp" type="tel" required placeholder="+234 …" autocomplete="tel"></label>
+              <label class="f">Email<input class="field" name="Email" type="email" placeholder="you@email.com" autocomplete="email"></label>
+              <label class="f">Passport of interest
+                <select class="field" name="Passport of interest"><option>Not sure yet, advise me</option><option>St Kitts &amp; Nevis</option><option>Antigua &amp; Barbuda</option><option>Grenada</option><option>Saint Lucia</option><option>Dominica</option></select>
+              </label>
+            </div>
+            <label class="f" style="margin-top:14px">Anything we should know? (optional)<textarea class="field" name="Notes" rows="3" placeholder="e.g. Applying with my spouse and two children; mainly for travel and schooling"></textarea></label>
+          </fieldset>
+          <div class="form-foot">
+            <span style="font-size:15px;color:var(--ink2)" id="bookSummary"></span>
+            <button type="submit" class="btn btn-gold">Book on WhatsApp</button>
+          </div>
+        </form>
+      </div>
+      <aside>
+        <div style="font-size:13px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:4px">Prefer to reach us directly?</div>
+        <a href="https://wa.me/2348073959876" target="_blank" rel="noopener" class="chan"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5FD3B5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg><span><b>WhatsApp</b><small>+234 807 395 9876</small></span></a>
+        <a href="tel:+2348073959876" class="chan"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D8B46A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span><b>Call: Nigeria</b><small>+234 807 395 9876</small></span></a>
+        <a href="tel:+447960645586" class="chan"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D8B46A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span><b>Call: United Kingdom</b><small>+44 7960 645586</small></span></a>
+        <a href="mailto:info@vtaglobalservices.com" class="chan"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D8B46A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v12H3z M3 7l9 6 9-6"/></svg><span><b>Email</b><small>info@vtaglobalservices.com</small></span></a>
+        <div class="card-d" style="padding:20px;gap:6px;border-color:#22425C"><b>Office</b><span style="font-size:14px;color:var(--muted)">Ikoyi, Lagos, Nigeria</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col"><img src="assets/img/logo.png" alt="VTA Global Services" width="222" height="60"><p>Citizenship by Investment advisors serving clients worldwide.</p><p style="color:#E9D3A0;font-size:13px">Grenada Government CBI Accredited Marketing Agent</p></div>
+      <div class="foot-col"><h4>Passports</h4><a href="passports.html#skn">St Kitts &amp; Nevis</a><a href="passports.html#ant">Antigua &amp; Barbuda</a><a href="passports.html#gre">Grenada</a><a href="passports.html#slu">Saint Lucia</a><a href="passports.html#dom">Dominica</a></div>
+      <div class="foot-col"><h4>Company</h4><a href="how-it-works.html">How CBI works</a><a href="ranking.html">Passport Ranking</a><a href="properties.html">Properties</a><a href="about.html">About us</a><a href="faq.html">FAQ</a><a href="consultation.html">Book a consultation</a></div>
+      <div class="foot-col"><h4>Contact</h4><a href="https://wa.me/2348073959876" target="_blank" rel="noopener">WhatsApp +234 807 395 9876</a><a href="tel:+2348073959876">+234 807 395 9876</a><a href="tel:+447960645586">+44 7960 645586</a><a href="mailto:info@vtaglobalservices.com">info@vtaglobalservices.com</a><a href="https://www.instagram.com/vtaglobalcitizenship/" target="_blank" rel="noopener">Instagram</a></div>
+    </div>
+    <div class="foot-bottom"><span>© <span data-year>2026</span> VTA Global Services. All rights reserved.</span></div>
+  </div>
+</footer>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
