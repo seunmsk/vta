@@ -51,6 +51,8 @@
     var wall = $('#ppWall'); if (!wall) return;
     var pickMap = { cost: 'cheapest', power: 'strongest', speed: 'fastest', e2: 'gre' };
     var priority = null, flipped = null, sort = 'rank';
+    var FLIP = '<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></svg>';
+    var HINT = '<span class="pp-hint">' + FLIP + '<span class="t-touch">Tap for details</span><span class="t-hover">Details</span></span>';
     function bestId() {
       var P = C.passports; if (!priority) return null;
       if (priority === 'e2') return 'gre';
@@ -61,14 +63,14 @@
       var pick = bestId();
       wall.innerHTML = C.passports.map(function (p) {
         return '<div class="pp-item">' +
-          '<button type="button" class="pp' + (flipped === p.id ? ' on' : '') + '" data-id="' + p.id + '" aria-label="' + esc(p.name) + ' passport: show ranking and features">' +
-          '<div class="pp-inner"><div class="pp-face front"><img src="' + esc(p.img) + '" alt="" loading="lazy"><span class="pp-badge">#' + esc(p.rank) + ' globally</span>' +
+          '<button type="button" class="pp' + (flipped === p.id ? ' on' : '') + '" data-id="' + p.id + '" aria-pressed="' + (flipped === p.id) + '" aria-label="' + esc(p.name) + ' passport: show ranking and features">' +
+          '<div class="pp-inner"><div class="pp-face front"><img src="' + esc(p.img) + '" alt="" loading="lazy"><span class="pp-foot"><span class="pp-badge">#' + esc(p.rank) + ' globally</span>' + HINT + '</span>' +
           (pick === p.id ? '<span class="pp-pick">BEST MATCH</span>' : '') + '</div>' +
           '<div class="pp-face back"><div style="display:flex;justify-content:space-between;gap:8px"><div><div class="pp-k">Global rank</div><div class="pp-v">#' + esc(p.rank) + '</div></div>' +
           '<div style="text-align:right"><div class="pp-k">Visa-free</div><div class="pp-v" style="font-size:30px;line-height:1.1">' + esc(p.dest) + '</div></div></div>' +
           '<div class="pp-bar"><i style="width:' + Math.min(100, Math.round(p.dest / 199 * 100)) + '%"></i></div>' +
           '<div class="pp-mini"><div><span style="color:#5B6B78">From</span><div>' + k(p.price) + '</div></div><div><span style="color:#5B6B78">Processing</span><div>' + esc(p.speed) + '</div></div></div>' +
-          '<ul class="pp-feat">' + (p.features || []).map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('') + '</ul></div></div></button>' +
+          '<ul class="pp-feat">' + (p.features || []).map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('') + '</ul><span class="pp-close">' + FLIP + 'Tap to close</span></div></div></button>' +
           '<div class="pp-meta"><b>' + esc(p.name) + '</b><span>Since ' + esc(p.est) + '</span></div>' +
           '<a href="passports.html#' + p.id + '" style="font-size:13px;font-weight:600;text-decoration:none">View programme →</a></div>';
       }).join('');
@@ -98,7 +100,26 @@
       var list = C.faqs.filter(function (f) { return f.home; }); if (!list.length) list = C.faqs.slice(0, 5);
       box.innerHTML = list.map(function (f, i) { return '<details class="acc"' + (i === 0 ? ' open' : '') + '><summary>' + esc(f.q) + '</summary><div class="ans">' + esc(f.a) + '</div></details>'; }).join('');
     }
-    wall.addEventListener('click', function (e) { var b = e.target.closest('.pp'); if (!b) return; flipped = flipped === b.dataset.id ? null : b.dataset.id; renderWall(); });
+    wall.addEventListener('click', function (e) {
+      var b = e.target.closest('.pp'); if (!b) return;
+      flipped = flipped === b.dataset.id ? null : b.dataset.id;
+      $$('.pp', wall).forEach(function (x) { x.classList.toggle('on', x.dataset.id === flipped); x.setAttribute('aria-pressed', x.dataset.id === flipped ? 'true' : 'false'); });
+    });
+    // Show the flip once, when the wall first comes into view.
+    if ('IntersectionObserver' in window) {
+      var seen = false; try { seen = sessionStorage.getItem('vta-peek') === '1'; } catch (err) {}
+      if (!seen) {
+        var io = new IntersectionObserver(function (en) {
+          if (!en[0].isIntersecting) return;
+          io.disconnect();
+          var first = $('.pp-inner', wall); if (!first) return;
+          setTimeout(function () { first.classList.add('peek'); }, 400);
+          first.addEventListener('animationend', function () { first.classList.remove('peek'); }, { once: true });
+          try { sessionStorage.setItem('vta-peek', '1'); } catch (err) {}
+        }, { threshold: 0.45 });
+        io.observe(wall);
+      }
+    }
     $$('#priorities .chip').forEach(function (c) {
       c.addEventListener('click', function () {
         priority = priority === c.dataset.p ? null : c.dataset.p;
