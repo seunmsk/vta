@@ -78,7 +78,9 @@ def page(fname, title, desc, page_id, body):
 {body}
 </main>
 {FOOTER}
+<script src="assets/js/content.js"></script>
 <script src="assets/js/app.js"></script>
+<script src="assets/js/feedback.js" defer></script>
 </body>
 </html>
 '''
